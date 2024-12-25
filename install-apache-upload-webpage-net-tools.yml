@@ -1,0 +1,39 @@
+---
+- name: install apache and upload webpage
+  hosts: yc
+  become: yes
+
+  tasks:
+  - name: install apache and upload http webpage
+    ansible.builtin.apt:
+      name: apache2 
+      state: present
+
+
+  - name: copy my homepage to servers
+    copy: 
+      src: /home/dgorelov/MyFilesInvValues/Mywebsite/index.html 
+      dest: /var/www/html
+      mode: 0555
+    notify: Restart apache
+
+  - name: start webserver and make it enable on boot
+    ansible.builtin.service:
+      name: apache2 
+      state: started
+      enabled: yes
+
+  handlers: 
+  - name: Restart apache
+    ansible.builtin.service: 
+      name: apache2
+      state: restarted
+
+- name: Download netstat utils
+  hosts: vpn
+  become: yes
+  tasks:
+  - name: download from apt deb-package
+    ansible.builtin.apt: 
+      name: net-tools
+      state: latest  
