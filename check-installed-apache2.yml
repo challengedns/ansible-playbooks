@@ -1,0 +1,16 @@
+- name: check if installed apache2
+  hosts: vpn
+  become: yes
+
+  tasks:
+  - name: Check if installed apache2
+    ansible.builtin.command: which apache2
+    register: apache2_installed
+    changed_when: false
+    failed_when: false
+
+  - name: Display message if apache2 isnot installed
+    ansible.builtin.debug:
+      msg: "apache2 is not installed on this system."
+    when: apache2_installed.rc !=0
+
