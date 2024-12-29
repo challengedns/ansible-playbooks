@@ -1,0 +1,13 @@
+### play with -vvv to get stdout in cli  !!! ###
+---
+- name: print memory
+  hosts: proxmox
+  become: yes
+  
+  tasks:
+    - name: 
+      ansible.builtin.shell: |
+        pvesh get /nodes/pve01/qemu/100/config | grep memory &&
+        pvesh get /nodes/pve01/qemu/101/config | grep memory &&
+        pvesh get /nodes/pve01/qemu/103/config | grep memory &&
+        pvesh get /nodes/pve01/qemu/104/config | grep memory
