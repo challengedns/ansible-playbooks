@@ -1,0 +1,10 @@
+- name: copy my homepage to servers
+  hosts: proxmox
+  become: yes
+
+  tasks:
+   - name: copy html 
+     copy: 
+       src: /home/dgorelov/MyFilesInvValues/Mywebsite/index.html 
+       dest: /var/
+       mode: 0555
