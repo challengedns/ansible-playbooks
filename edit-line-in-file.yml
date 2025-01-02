@@ -1,0 +1,11 @@
+---
+- name: Изменить строку в файле
+  hosts: k8s
+  become: yes
+  tasks:
+    - name: Заменить строку в файле
+      ansible.builtin.lineinfile:
+        path: /etc/fstab
+        regexp: '^/swap.img	none	swap	sw	0	0'
+        line: '#/swap.img	none	swap	sw	0	0'
+        backup: yes
